@@ -5,7 +5,10 @@ This repository contains the code/data accompanying our recent work on long-form
 **NOTE** This dataset should not be used for any commercial purposes. See the [license](LICENSE) for the detailed terms.
 
 ## Data 
-To get the data, see the [`data/`](data/) directory. 
+To get the data, see the [`data/`](data/) directory.
+Note that the data is stored via [`git-lfs`](https://git-lfs.github.com/). 
+If you're cloning the project (`git clone git@github.com:allenai/qoogle.git`), make sure to also run `git lfs pull` as well.    
+ 
 Each row of the data file should look like this: 
 ```json
 {
