@@ -18,14 +18,14 @@ Each row of the data file should look like this:
 ```
 where the questions `question` are collected via Google auto-complete.  
 The answers responses (`short_answer` and `answer`) were collected from Google's answer boxes.
-The answer type (`answer_type`) is infered based on the html content of Google's response. 
-The data contains the following responses: 
- - `feat_snip`: snippet responses (e.g., an explanation). Majoriy the question/responses are of this type. 
- - `collection`: list of responses (e.g., steps to accomplish something) 
- - `knowledge`: typically short responses for knowledge seeking questions 
- - `unit_conv`: questions about converting units 
- - `time_conv`: questions about converting time units/zones 
- - `curr_conv`: questions about converting currencies 
+The answer types (`answer_type`) are inferred based on the html content of Google's response. 
+Here is the dominant types in the current dataset:  
+ - `feat_snip`: explanatory responses; the majoriy the question/responses are of this type. 
+ - `collection`: list responses (e.g., steps to accomplish something). 
+ - `knowledge`: typically short responses for knowledge seeking questions. 
+ - `unit_conv`: questions about converting units. 
+ - `time_conv`: questions about converting times. 
+ - `curr_conv`: questions about converting currencies.  
 
 Here are several more examples from the data: 
 ```json
@@ -85,9 +85,7 @@ Here are several more examples from the data:
   "answer": "['Trying intermittent fasting. ... ', 'Tracking your diet and exercise. ... ', 'Eating mindfully. ... ', 'Eating protein for breakfast. ... ', 'Cutting back on sugar and refined carbohydrates. ... ', 'Eating plenty of fiber. ... ', 'Balancing gut bacteria. ... ', \"Getting a good night's sleep.\"]",
   "answer_type": "collection"
 }
-```
-
-We are not planning to release the scripts needed for extracting this data. 
+``` 
  
 ## Baselines 
 See the scripts for reproducing our [T5](https://github.com/google-research/text-to-text-transfer-transformer/) baselines, see the [`experiments/`](experiments) directory.  
