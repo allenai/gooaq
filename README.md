@@ -1,4 +1,4 @@
-# Qoogle: questions and answers mined from Google! 
+# GooAQ: questions and answers mined from Google! 
 
 This repository contains the code/data accompanying our recent work on long-form question answering.   
 
@@ -7,7 +7,7 @@ This repository contains the code/data accompanying our recent work on long-form
 ## Data 
 To get the data, see the [`data/`](data/) directory.
 Note that the data is stored via [`git-lfs`](https://git-lfs.github.com/). 
-If you're cloning the project (`git clone git@github.com:allenai/qoogle.git`), make sure to also run `git lfs pull` as well.    
+If you're cloning the project (`git clone git@github.com:allenai/gooaq.git`), make sure to also run `git lfs pull` as well.    
  
 Each row of the data file should look like this: 
 ```json
@@ -97,7 +97,7 @@ See the scripts for reproducing our [T5](https://github.com/google-research/text
 ## More reading 
 See the following paper: 
 ```bibtex 
-@article{qoogle2021,
+@article{gooaq2021,
   title={Is Your Language Model as Knowledgeable as Google?},
   author={Khashabi, Daniel and Ng, Amos and Khot, Tushar and Sabharwal, Ashish and Hajishirzi, Hannaneh and Callison-Burch, Chris},
   journal={arXiv preprint},
