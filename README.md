@@ -1,4 +1,4 @@
-# GooAQ 🥑: questions and answers mined from Google! 
+# GooAQ 🥑: Google Answers to Google Questions! 
 
 This repository contains the code/data accompanying our recent work on long-form question answering.   
 
