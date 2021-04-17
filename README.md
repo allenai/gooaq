@@ -93,6 +93,8 @@ Here are several more examples from the data:
 ## Baselines 
 See the scripts for reproducing our [T5](https://github.com/google-research/text-to-text-transfer-transformer/) baselines, see the [`experiments/`](experiments) directory.  
 
+## Reproducing Human Evaluation 
+TBD 
 
 ## More reading 
 See the following paper: 
