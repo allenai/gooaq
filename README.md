@@ -100,7 +100,7 @@ TBD
 See the following paper: 
 ```bibtex 
 @article{gooaq2021,
-  title={Is Your Language Model as Knowledgeable as Google?},
+  title={GooAQ: Open Question Answering with Diverse Answer Types},
   author={Khashabi, Daniel and Ng, Amos and Khot, Tushar and Sabharwal, Ashish and Hajishirzi, Hannaneh and Callison-Burch, Chris},
   journal={arXiv preprint},
   year={2021}
