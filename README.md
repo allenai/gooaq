@@ -99,6 +99,11 @@ Here are several more examples from the data:
   "answer_url": null
 }
 ``` 
+## Question/Answer Extraction Scripts 
+See [this directory](extraction), which contains two sub-folders:  
+ (1) the question extraction script
+ (2) the answer extraction scripts 
+ 
  
 ## Baselines 
 See the scripts for reproducing our [T5](https://github.com/google-research/text-to-text-transfer-transformer/) baselines, see the [`experiments/`](experiments) directory.  
