@@ -11,27 +11,24 @@ Options:
    --dataset_mixture_name=NAME              Name of the dataset the predictions on which we want to evaluate
    --bucket_name=GOOGLE_CLOUD_BUCKET_NAME   Name of the bucket in GoogleCloud where the predictions are stored
    --eval_path=NAME                         gs:// link to predictions to evaluate
-   --eval_metric=METRIC_NAME                Name of the evaluation metric. Currently recognized options: efficientqa_exact, efficientqa_regex
+   --eval_metric=METRIC_NAME                Name of the evaluation metric. f1, rouge
    --model_size=SIZE                        Size of the t5 model whose predictions are to be evaluated
 """
 # example run:
-# python evaluate_predictions.py --eval_path=gs://danielk-files/qoogle-t5-models/google_answers_short_answers_v6_size_2000/11B/dev_eval --eval_metric=f1
+# python evaluate_predictions.py --eval_path=gs://BUCKET_NAME/qoogle-t5-models/google_answers_short_answers_v6_size_2000/11B/dev_eval --eval_metric=f1
 
 import json
 import random
-
-import efficientqa_eval_utils
 from squad11_eval_utils import metric_max_over_ground_truths, f1_score, exact_match_score
 from narrativeqa_eval_utils import rouge_l, metric_max_over_ground_truths_r
 import re
-import t5
 import tensorflow.compat.v1 as tf
 
 from docopt import docopt
 from google.cloud import storage
 
 all_questions = {}
-with open("../collecting_answers/dump.json") as f:
+with open(".../data/gooaq.json") as f:
     for x in f.readlines():
         json_line = json.loads(x)
         all_questions[json_line['id']] = json_line
@@ -50,21 +47,9 @@ def evaluate(targets, predictions, eval_metric, ids):
         questions = random.sample(questions, 1000)
     for question in questions:
         if question in predictions:
-            # print("------")
-            # print(question)
-            # print(targets[question])
-            # print(predictions[question])
             curr_score = 0
             num_examples += 1
-            if eval_metric == 'efficientqa_exact':
-                curr_score = int(
-                    efficientqa_eval_utils.is_correct(answers=targets[question], prediction=predictions[question],
-                                                      is_regex=False))
-            elif eval_metric == 'efficientqa_regex':
-                curr_score = int(
-                    efficientqa_eval_utils.is_correct(answers=targets[question], prediction=predictions[question],
-                                                      is_regex=True))
-            elif eval_metric == 'f1':
+            if eval_metric == 'f1':
                 curr_score = metric_max_over_ground_truths(
                     f1_score, predictions[question], targets[question])
             elif eval_metric == 'em':
@@ -82,10 +67,6 @@ def evaluate(targets, predictions, eval_metric, ids):
             if ids:
                 id = ids[question]
                 answer_type = all_questions[id]['answer_type']  # update
-                if answer_type == 'rich_snip': # merging these two categories
-                    answer_type = 'feat_snip'
-                if answer_type == 'overview': # merging these two categories
-                    answer_type = 'knowledge'
                 if answer_type not in per_type_scores:
                     per_type_scores[answer_type] = []
                 per_type_scores[answer_type].append(curr_score)
@@ -103,6 +84,7 @@ def evaluate(targets, predictions, eval_metric, ids):
                 print(f" {t} \t {avg_score} \t {len(list)}")
     return (score / float(num_examples), num_examples, missing_examples)
 
+
 def create_map(list1, list2):
     new_dict = {}
     for (key, value) in zip(list1, list2):
@@ -111,6 +93,7 @@ def create_map(list1, list2):
         else:
             new_dict[key] = [value]
     return new_dict
+
 
 if __name__ == "__main__":
 
@@ -152,6 +135,7 @@ if __name__ == "__main__":
                 lines.append(line.strip())
         return lines
 
+
     inputs_file = ([blob for blob in blobs if blob.name.endswith('_inputs')])[0]
     inputs = get_lines_from_file(bucket_name, inputs_file.name)
     targets_file = ([blob for blob in blobs if blob.name.endswith('_targets')])[0]
@@ -173,9 +157,6 @@ if __name__ == "__main__":
         best_checkpoint_missing_examples = []
         best_checkpoint_predictions = []
         for prediction_checkpoint in prediction_checkpoints:
-            if "1180400" not in prediction_checkpoint.name:
-                print(f" Skipping: {prediction_checkpoint.name}")
-                continue
             print(f'Evaluating prediction checkpoint {prediction_checkpoint.name}')
             predictions = get_lines_from_file(bucket_name, prediction_checkpoint.name)
             predictions = [x.split("\t")[0] for x in predictions]
