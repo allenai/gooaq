@@ -99,17 +99,22 @@ Here are several more examples from the data:
   "answer_url": null
 }
 ``` 
-## Question/Answer Extraction Scripts 
-See [this directory](extraction), which contains two sub-folders:  
- (1) the question extraction script
- (2) the answer extraction scripts 
- 
- 
+
+## Reproducing the splits 
+The [`split.json`](data/split.json) file which contains the IDs in each split (test, train and dev).
+For each instance in the training split, there is also a similarity score (similarity to the instance of test + dev) which was used when sampling smaller training data.
+To reproduce our splits, you can run [`create_splits.py`](experiments/create_splits.py) script. 
+
 ## Baselines 
 See the scripts for reproducing our [T5](https://github.com/google-research/text-to-text-transfer-transformer/) baselines, see the [`experiments/`](experiments) directory.  
 
 ## Reproducing Human Evaluation 
 TBD 
+
+## Question/Answer Extraction Scripts
+See [this directory](extraction), which contains two sub-folders:  
+(1) the question extraction script
+(2) the answer extraction scripts
 
 ## More reading 
 See the following paper: 
